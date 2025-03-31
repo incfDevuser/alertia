@@ -10,6 +10,10 @@ const UsuarioSchema = new mongoose.Schema({
     required: true,
     unique: true,
   },
+  password: {
+    type: String,
+    required: true,
+  },
   google_id: {
     type: String,
   },
@@ -30,7 +34,6 @@ const UsuarioSchema = new mongoose.Schema({
   comunidad_id: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "Comunidad",
-    required: true,
   },
   rol: {
     type: String,
