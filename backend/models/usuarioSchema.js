@@ -19,6 +19,10 @@ const UsuarioSchema = new mongoose.Schema({
   facebook_id: {
     type: String,
   },
+  password: {
+    type: String,
+    required: true,
+  },
   telefono: {
     type: String,
     required: true,
@@ -30,7 +34,6 @@ const UsuarioSchema = new mongoose.Schema({
   comunidad_id: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "Comunidad",
-    required: true,
   },
   rol: {
     type: String,

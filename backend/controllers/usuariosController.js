@@ -25,21 +25,34 @@ const login = async (req, res) => {
     if (!usuario) {
       return res.status(404).json({ message: "Usuario no encontrado" });
     }
+    if (!usuario.password) {
+      return res.status(400).json({ message: "Usuario no tiene contraseña configurada" });
+    }
     const validPassword = await bcryptjs.compare(password, usuario.password);
     if (!validPassword) {
       return res.status(401).json({ message: "Contraseña incorrecta" });
     }
-    const token = CreateJwt(usuario._id);
+    const token = CreateJwt({ id: usuario._id });
     res.cookie("token_access", token, {
       httpOnly: true,
       secure: process.env.NODE_ENV === "production",
       sameSite: "strict",
       maxAge: 24 * 60 * 60 * 1000,
     });
-    return res.status(200).json({ message: "Login exitoso" });
+    return res.status(200).json({ 
+      message: "Login exitoso",
+      usuario: {
+        id: usuario._id,
+        nombre_completo: usuario.nombre_completo,
+        email: usuario.email,
+        rol: usuario.rol
+      }
+    });
   } catch (error) {
+    console.error("Error en login:", error);
     return res.status(500).json({
       message: "Error al iniciar sesión",
+      error: error.message
     });
   }
 };
