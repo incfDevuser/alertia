@@ -7,9 +7,15 @@ import 'leaflet-draw/dist/leaflet.draw.css';
 import Home from "./pages/Empresas/Home";
 import NotFound from "./pages/Empresas/NotFound";
 import Layout from "./components/Empresas/Layout";
+import AnalisisIncidentes from "./pages/Empresas/AnalisisIncidentes";
+import Comunas from "./pages/Empresas/Comunas";
+import MapaIncidentes from "./pages/Empresas/MapaIncidentes";
+import Proyecciones from "./pages/Empresas/Proyecciones";
+import Reportes from "./pages/Empresas/Reportes";
 //Edificios
 import HomeEdificios from "./pages/Edificios/HomeEdificios";
 import LayoutEdificios from "./components/Edificios/LayoutEdificios";
+import SeccionDePrueba from "./pages/Edificios/SeccionDePrueba";
 //Municipalidades
 import HomeMunicipalidad from "./pages/Municipalidades/HomeMunicipalidad";
 import LayoutMunicipalidad from "./components/Municipalidades/LayoutMunicipalidad";
@@ -56,11 +62,17 @@ function App() {
           {selectedType === "empresa" && (
             <Route element={<Layout />}>
               <Route path="/" element={<Home />} />
+              <Route path="/comunas" element={<Comunas />} />
+              <Route path="/mapa-incidentes" element={<MapaIncidentes />} />
+              <Route path="/analisis-incidentes" element={<AnalisisIncidentes />} />
+              <Route path="/reportes" element={<Reportes />} />
+              <Route path="/proyecciones" element={<Proyecciones />} />
             </Route>
           )}
           {selectedType === "edificios" && (
             <Route element={<LayoutEdificios />}>
               <Route path="/" element={<HomeEdificios />} />
+              <Route path="/seccion-de-prueba-edificios" element={<SeccionDePrueba />} />
             </Route>
           )}
           <Route path="*" element={<NotFound />} />

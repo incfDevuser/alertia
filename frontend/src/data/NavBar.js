@@ -79,7 +79,7 @@ const NavLinksEdificios = [
   {
     id: 2,
     label: "Seccion de Prueba",
-    path: "/seccion-de-prueba",
+    path: "/seccion-de-prueba-edificios",
     icon: AiOutlineHome,
   },
 ];
