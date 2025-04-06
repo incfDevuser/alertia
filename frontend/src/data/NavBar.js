@@ -51,11 +51,23 @@ const NavLinksMunicipalidades = [
     icon: AiOutlineHome,
   },
   {
-    id: 2,
-    label: "Seccion de Prueba",
-    path: "/seccion-de-prueba",
-    icon: AiOutlineHome,
+    id: 3,
+    label: "Mapa de Incidentes",
+    path: "/mapa-incidentes",
+    icon: BsMap,
   },
+  {
+    id: 4,
+    label: "Reportes",
+    path: "/reportes",
+    icon: VscReport,
+  },
+  {
+    id: 5,
+    label: "Editor de Zona",
+    path: "/editor-zona",
+    icon: BsMap,
+  }
 ];
 const NavLinksEdificios = [
   {

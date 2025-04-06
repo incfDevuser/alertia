@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
+import 'leaflet/dist/leaflet.css';
+import 'leaflet-draw/dist/leaflet.draw.css';
 
 //Empresas
 import Home from "./pages/Empresas/Home";
@@ -10,11 +12,14 @@ import HomeEdificios from "./pages/Edificios/HomeEdificios";
 import LayoutEdificios from "./components/Edificios/LayoutEdificios";
 //Municipalidades
 import HomeMunicipalidad from "./pages/Municipalidades/HomeMunicipalidad";
-import SeccionPruebas from "./pages/Municipalidades/SeccionPruebas";
 import LayoutMunicipalidad from "./components/Municipalidades/LayoutMunicipalidad";
+import MapaMunicipalidad from "./pages/Municipalidades/MapaMunicipalidad";
+import Reportes from "./pages/Municipalidades/Reportes";
+import MapaEditor from "./pages/Municipalidades/MapaEditor";
 
 //Paigna de inicio full
 import HomePage from "./pages/HomePage";
+import { HomePageMunicipalidad } from "./pages/HomePage";
 
 function App() {
   const [selectedType, setSelectedType] = useState("default");
@@ -39,10 +44,13 @@ function App() {
       </div>
       <BrowserRouter>
         <Routes>
+        <Route path="/" element={<HomePageMunicipalidad />} />
           {selectedType === "municipalidad" && (
             <Route element={<LayoutMunicipalidad />}>
               <Route path="/" element={<HomeMunicipalidad />} />
-              <Route path="/seccion-de-prueba" element={<SeccionPruebas />} />
+              <Route path="/mapa-incidentes" element={<MapaMunicipalidad />} />
+              <Route path="/reportes" element={<Reportes />} />
+              <Route path="/editor-zona" element={<MapaEditor />} />
             </Route>
           )}
           {selectedType === "empresa" && (
