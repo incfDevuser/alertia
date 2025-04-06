@@ -15,7 +15,7 @@ import HomeMunicipalidad from "./pages/Municipalidades/HomeMunicipalidad";
 import LayoutMunicipalidad from "./components/Municipalidades/LayoutMunicipalidad";
 import MapaMunicipalidad from "./pages/Municipalidades/MapaMunicipalidad";
 import Reportes from "./pages/Municipalidades/Reportes";
-import MapaEditor from "./pages/Municipalidades/MapaEditor";
+import MapaEditor from "./pages/MapaEditor";
 
 //Paigna de inicio full
 import HomePage from "./pages/HomePage";

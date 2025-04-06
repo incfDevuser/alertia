@@ -31,11 +31,9 @@ const Editor = () => {
       const layer = e.layer;
       drawnItems.addLayer(layer);
 
-      // Obtener coordenadas del polígono dibujado
       const geojson = layer.toGeoJSON();
-      const coords = geojson.geometry.coordinates[0]; // Array de [lng, lat]
+      const coords = geojson.geometry.coordinates[0];
 
-      // Guardar en localStorage
       localStorage.setItem("limitePersonalizado", JSON.stringify(coords));
       alert("Zona guardada correctamente 🚀");
     });

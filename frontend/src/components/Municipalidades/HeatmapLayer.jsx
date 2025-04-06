@@ -1,4 +1,3 @@
-// src/components/Municipalidades/HeatmapLayer.jsx
 import { useEffect } from 'react';
 import { useMap } from 'react-leaflet';
 import 'leaflet.heat';
