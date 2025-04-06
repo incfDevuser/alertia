@@ -5,6 +5,8 @@ import cookieParser from "cookie-parser";
 import conexion from "./config/db.js";
 //Rutas de usuarios
 import usuarioRoutes from "./routes/usuario.routes.js";
+import comunidadesRoutes from "./routes/comunidades.routes.js";
+
 dotenv.config();
 conexion();
 
@@ -16,7 +18,9 @@ app.use(express.json());
 app.use(cookieParser());
 
 //API de usuarios
-app.use("/api/usuarios", usuarioRoutes); 
+app.use("/api/usuarios", usuarioRoutes);
+app.use("/api/comunidades", comunidadesRoutes);
+
 app.listen(port, () => {
   console.log(`Servidor corriendo en el puerto ${port}`);
 });

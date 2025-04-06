@@ -1,6 +1,7 @@
 import bcryptjs from "bcryptjs";
 import Usuario from "../models/usuarioSchema.js";
-import CreateJwt from "../utils/CreateJwt.js";
+import dotenv from "dotenv";
+import jwt from "jsonwebtoken";
 
 const obtenerUsuarios = async (req, res) => {
   try {
@@ -26,33 +27,39 @@ const login = async (req, res) => {
       return res.status(404).json({ message: "Usuario no encontrado" });
     }
     if (!usuario.password) {
-      return res.status(400).json({ message: "Usuario no tiene contraseña configurada" });
+      return res
+        .status(400)
+        .json({ message: "Usuario no tiene contraseña configurada" });
     }
-    const validPassword = await bcryptjs.compare(password, usuario.password);
+    const validPassword = bcryptjs.compareSync(password, usuario.password);
     if (!validPassword) {
       return res.status(401).json({ message: "Contraseña incorrecta" });
     }
-    const token = CreateJwt({ id: usuario._id });
-    res.cookie("token_access", token, {
-      httpOnly: true,
-      secure: process.env.NODE_ENV === "production",
-      sameSite: "strict",
-      maxAge: 24 * 60 * 60 * 1000,
+    const payload = {
+      _id: usuario._id,
+      nombre_completo: usuario.nombre_completo,
+      email: usuario.email,
+      rol: usuario.rol,
+    };
+    const token = jwt.sign(payload, process.env.JWT_SECRET, {
+      expiresIn: "1d",
     });
-    return res.status(200).json({ 
-      message: "Login exitoso",
-      usuario: {
-        id: usuario._id,
-        nombre_completo: usuario.nombre_completo,
-        email: usuario.email,
-        rol: usuario.rol
-      }
+    const cookieOptions = {
+      httpOnly: true,
+      maxAge: 7 * 24 * 60 * 60 * 1000,
+      sameSite: "lax",
+      secure: true,
+    };
+    res.cookie("token_access", token, cookieOptions);
+    return res.status(200).json({
+      message: "Inicio de sesión exitoso",
+      usuario: payload,
     });
   } catch (error) {
     console.error("Error en login:", error);
     return res.status(500).json({
       message: "Error al iniciar sesión",
-      error: error.message
+      error: error.message,
     });
   }
 };
@@ -62,40 +69,44 @@ const registrarse = async (req, res) => {
   if (!nombre_completo || !email || !password || !telefono || !direccion) {
     return res.status(400).json({ message: "Todos los campos son requeridos" });
   }
+  const usuarioExiste = await Usuario.findOne({ email });
+  if (usuarioExiste) {
+    return res.status(400).json({ message: "El email ya está registrado" });
+  }
+  const hashedPassword = await bcryptjs.hash(password, 10);
+  const nuevoUsuario = new Usuario({
+    nombre_completo,
+    email,
+    password: hashedPassword,
+    telefono,
+    direccion,
+    ubicacion: ubicacion || {
+      type: "Point",
+      coordinates: [0, 0],
+    },
+    rol: "usuario",
+  });
   try {
-    const usuarioExiste = await Usuario.findOne({ email });
-    if (usuarioExiste) {
-      return res.status(400).json({ message: "El email ya está registrado" });
-    }
-    const salt = await bcryptjs.genSalt(10);
-    const hashedPassword = await bcryptjs.hash(password, salt);
-    const nuevoUsuario = new Usuario({
-      nombre_completo,
-      email,
-      password: hashedPassword,
-      telefono,
-      direccion,
-      ubicacion: ubicacion || {
-        type: "Point",
-        coordinates: [0, 0],
-      },
-      rol: "usuario",
+    const nuevoUsuario = await nuevoUsuario.save();
+    const payload = {
+      _id: nuevoUsuario._id,
+      nombre_completo: nuevoUsuario.nombre_completo,
+      email: nuevoUsuario.email,
+      rol: nuevoUsuario.rol,
+    };
+    const token = jwt.sign(payload, process.env.JWT_SECRET, {
+      expiresIn: "1d",
     });
-    const usuarioGuardado = await nuevoUsuario.save();
-    const token = CreateJwt(usuarioGuardado);
-    res.cookie("token_access", token, {
+    const cookieOptions = {
       httpOnly: true,
-      secure: process.env.NODE_ENV === "production",
-      sameSite: "strict",
-      maxAge: 24 * 60 * 60 * 1000,
-    });
+      maxAge: 7 * 24 * 60 * 60 * 1000,
+      sameSite: "lax",
+      secure: true,
+    };
+    res.cookie("token_access", token, cookieOptions);
     return res.status(201).json({
       message: "Usuario registrado exitosamente",
-      usuario: {
-        nombre_completo: usuarioGuardado.nombre_completo,
-        email: usuarioGuardado.email,
-        rol: usuarioGuardado.rol,
-      },
+      nuevoUsuario,
     });
   } catch (error) {
     console.error("Error al registrar:", error);
@@ -126,7 +137,7 @@ const cerrarSesion = async (req, res) => {
 };
 const perfilUsuario = async (req, res) => {
   try {
-    const usuario = await Usuario.findById(req.user.id).select('-password');
+    const usuario = await Usuario.findById(req.user._id).select("-password");
     if (!usuario) {
       return res.status(404).json({
         message: "Usuario no encontrado",
@@ -137,10 +148,10 @@ const perfilUsuario = async (req, res) => {
     console.error(error);
     return res.status(500).json({
       message: "Error al obtener el perfil",
-      error: error.message
+      error: error.message,
     });
   }
-}
+};
 export const UsuarioController = {
   login,
   editarPerfil,
