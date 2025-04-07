@@ -10,6 +10,7 @@ import Comunas from "./pages/Empresas/Comunas";
 import MapaIncidentes from "./pages/Empresas/MapaIncidentes";
 import Proyecciones from "./pages/Empresas/Proyecciones";
 import Reportes from "./pages/Empresas/Reportes";
+import ComunaDetalle from "./pages/Empresas/ComunaDetalle";
 //Edificios
 import HomeEdificios from "./pages/Edificios/HomeEdificios";
 import LayoutEdificios from "./components/Edificios/LayoutEdificios";
@@ -55,6 +56,7 @@ function App() {
             <Route element={<Layout />}>
               <Route path="/" element={<Home />} />
               <Route path="/comunas" element={<Comunas />} />
+              <Route path="/comuna/:nombre" element={<ComunaDetalle />} />
               <Route path="/mapa-incidentes" element={<MapaIncidentes />} />
               <Route path="/analisis-incidentes" element={<AnalisisIncidentes />} />
               <Route path="/reportes" element={<Reportes />} />
