@@ -22,7 +22,7 @@ import SeccionDePrueba from "./pages/Edificios/SeccionDePrueba";
 import HomeMunicipalidad from "./pages/Municipalidades/HomeMunicipalidad";
 import LayoutMunicipalidad from "./components/Municipalidades/LayoutMunicipalidad";
 import MapaMunicipalidad from "./pages/Municipalidades/MapaMunicipalidad";
-import Reportes from "./pages/Municipalidades/Reportes";
+import ReportesMunicipalidades from "./pages/Municipalidades/Reportes";
 import MapaEditor from "./pages/Municipalidades/MapaEditor";
 
 //Paigna de inicio full
@@ -57,7 +57,7 @@ function App() {
             <Route element={<LayoutMunicipalidad />}>
               <Route path="/" element={<HomeMunicipalidad />} />
               <Route path="/mapa-incidentes" element={<MapaMunicipalidad />} />
-              <Route path="/reportes" element={<Reportes incidentesFiltradosos={[]} />} />
+              <Route path="/reportes-municipalidades" element={<ReportesMunicipalidades />} />
               <Route path="/editor-zona" element={<MapaEditor />} />
             </Route>
           )}
