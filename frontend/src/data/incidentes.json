@@ -1,0 +1,61 @@
+{
+    "incidentes": [
+      {
+        "id": "inc001",
+        "tipo": "robo",
+        "coordenadas": { "lat": -33.424, "lng": -70.621 },
+        "fecha": "2025-04-05T08:30:00Z",
+        "reportes": 7,
+        "validado": true
+      },
+      {
+        "id": "inc002",
+        "tipo": "asalto",
+        "coordenadas": { "lat": -33.426, "lng": -70.623 },
+        "fecha": "2025-04-05T09:15:00Z",
+        "reportes": 3,
+        "validado": false
+      }
+    ],
+    "rutasOptimas": [
+      {
+        "id": "ruta001",
+        "puntos": [
+          { "lat": -33.424, "lng": -70.621 },
+          { "lat": -33.426, "lng": -70.623 },
+          { "lat": -33.428, "lng": -70.619 }
+        ],
+        "descripcion": "Ruta sugerida para patrullaje"
+      }
+    ],
+    "estadisticas": {
+      "totalIncidentes": 5,
+      "incidentesPorTipo": {
+        "robo": 3,
+        "asalto": 1,
+        "vandalismo": 1
+      },
+      "promedioReportes": 5.4,
+      "incidentesPorHora": {
+        "08": 1,
+        "09": 1,
+        "10": 1,
+        "11": 1,
+        "12": 1
+      }
+    },
+    "geocercas": [
+      {
+        "id": "geo001",
+        "nombre": "Providencia",
+        "limite": [
+          { "lat": -33.432, "lng": -70.630 },
+          { "lat": -33.432, "lng": -70.610 },
+          { "lat": -33.418, "lng": -70.610 },
+          { "lat": -33.418, "lng": -70.630 },
+          { "lat": -33.432, "lng": -70.630 }
+        ]
+      }
+    ]
+  }
+  

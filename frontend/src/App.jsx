@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
+import 'leaflet/dist/leaflet.css';
+import 'leaflet-draw/dist/leaflet.draw.css';
 
 //Empresas
 import Home from "./pages/Empresas/Home";
@@ -11,17 +13,21 @@ import MapaIncidentes from "./pages/Empresas/MapaIncidentes";
 import Proyecciones from "./pages/Empresas/Proyecciones";
 import Reportes from "./pages/Empresas/Reportes";
 import ComunaDetalle from "./pages/Empresas/ComunaDetalle";
+import ReportesEmpresas from "./pages/Empresas/Reportes";
 //Edificios
 import HomeEdificios from "./pages/Edificios/HomeEdificios";
 import LayoutEdificios from "./components/Edificios/LayoutEdificios";
 import SeccionDePrueba from "./pages/Edificios/SeccionDePrueba";
 //Municipalidades
 import HomeMunicipalidad from "./pages/Municipalidades/HomeMunicipalidad";
-import SeccionPruebas from "./pages/Municipalidades/SeccionPruebas";
 import LayoutMunicipalidad from "./components/Municipalidades/LayoutMunicipalidad";
+import MapaMunicipalidad from "./pages/Municipalidades/MapaMunicipalidad";
+import Reportes from "./pages/Municipalidades/Reportes";
+import MapaEditor from "./pages/Municipalidades/MapaEditor";
 
 //Paigna de inicio full
 import HomePage from "./pages/HomePage";
+import { HomePageMunicipalidad } from "./pages/HomePage";
 
 function App() {
   const [selectedType, setSelectedType] = useState("default");
@@ -46,10 +52,13 @@ function App() {
       </div>
       <BrowserRouter>
         <Routes>
+        <Route path="/" element={<HomePageMunicipalidad />} />
           {selectedType === "municipalidad" && (
             <Route element={<LayoutMunicipalidad />}>
               <Route path="/" element={<HomeMunicipalidad />} />
-              <Route path="/seccion-de-prueba" element={<SeccionPruebas />} />
+              <Route path="/mapa-incidentes" element={<MapaMunicipalidad />} />
+              <Route path="/reportes" element={<Reportes />} />
+              <Route path="/editor-zona" element={<MapaEditor />} />
             </Route>
           )}
           {selectedType === "empresa" && (
@@ -59,7 +68,7 @@ function App() {
               <Route path="/comuna/:nombre" element={<ComunaDetalle />} />
               <Route path="/mapa-incidentes" element={<MapaIncidentes />} />
               <Route path="/analisis-incidentes" element={<AnalisisIncidentes />} />
-              <Route path="/reportes" element={<Reportes />} />
+              <Route path="/ReportesEmpresas" element={<ReportesEmpresas />} />
               <Route path="/proyecciones" element={<Proyecciones />} />
             </Route>
           )}
