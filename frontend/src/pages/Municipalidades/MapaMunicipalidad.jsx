@@ -31,7 +31,13 @@ const MapaMunicipalidad = () => {
   const { incidentes, rutasOptimas, geocercas } = data;
 
   const geoCerca = geocercas[0].limite;
-  const bounds = geoCerca.map(coord => [coord.lat, coord.lng]);
+  const zonaGuardada = JSON.parse(localStorage.getItem("limitePersonalizado") || "[]");
+  const comuna = localStorage.getItem("comunaSeleccionada") || "(no definida)";
+
+  // Usar zona personalizada si está disponible, de lo contrario usar geoCerca
+  const bounds = zonaGuardada.length > 0
+    ? zonaGuardada.map(([lng, lat]) => [lat, lng])
+    : geoCerca.map(coord => [coord.lat, coord.lng]);
 
   const puntosHeat = incidentes.map((i) => [
     i.coordenadas.lat,
@@ -39,8 +45,6 @@ const MapaMunicipalidad = () => {
     i.reportes / 10
   ]);
 
-  const zonaGuardada = JSON.parse(localStorage.getItem("limitePersonalizado") || "[]");
-  const comuna = localStorage.getItem("comunaSeleccionada") || "(no definida)";
   return (
     <div className="w-full h-[80vh] bg-white rounded-xl shadow-lg overflow-hidden border border-gray-300">
       <div className="p-2">
@@ -48,7 +52,7 @@ const MapaMunicipalidad = () => {
       </div>
       <MapContainer
         style={{ width: '100%', height: '100%' }}
-        maxBounds={bounds}
+        maxBounds={bounds} // Límite dinámico
         maxBoundsViscosity={1.0}
       >
         <FitBounds bounds={bounds} />
@@ -56,7 +60,6 @@ const MapaMunicipalidad = () => {
           attribution='&copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors'
           url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
         />
-        <Polygon positions={bounds} pathOptions={{ color: 'blue', fillOpacity: 0.1 }} />
   
         <HeatmapLayer puntos={puntosHeat} />
   
