@@ -55,7 +55,7 @@ function App() {
             <Route element={<LayoutMunicipalidad />}>
               <Route path="/" element={<HomeMunicipalidad />} />
               <Route path="/mapa-incidentes" element={<MapaMunicipalidad />} />
-              <Route path="/reportes" element={<Reportes />} />
+              <Route path="/reportes" element={<Reportes incidentesFiltradosos={[]} />} />
               <Route path="/editor-zona" element={<MapaEditor />} />
             </Route>
           )}
