@@ -1,0 +1,125 @@
+{
+  "total_incidentes": 1284,
+  "tasa_resolucion": 72.5,
+  "indice_seguridad": 58,
+  "media_tiempo_respuesta": 11,
+  "incidentes_por_hora": [
+    { "hora": "00:00", "cantidad": 15 },
+    { "hora": "06:00", "cantidad": 8 },
+    { "hora": "12:00", "cantidad": 25 },
+    { "hora": "18:00", "cantidad": 42 }
+  ],
+  "tipos_incidente": [
+    { "tipo": "Robo", "cantidad": 542, "variacion": 12.5 },
+    { "tipo": "Violencia", "cantidad": 346, "variacion": -5.2 },
+    { "tipo": "Vandalismo", "cantidad": 231, "variacion": 8.7 },
+    { "tipo": "Otros", "cantidad": 165, "variacion": 0.3 }
+  ],
+  "alertas_confirmadas_vs_falsas": {
+    "confirmadas": 832,
+    "falsas": 452
+  },
+  "tipos_incidente_top": [
+    { "tipo": "Robo a domicilio", "porcentaje": 42 },
+    { "tipo": "Intrusión comercial", "porcentaje": 27 },
+    { "tipo": "Violencia doméstica", "porcentaje": 18 },
+    { "tipo": "Emergencia médica", "porcentaje": 8 },
+    { "tipo": "Falsas alarmas", "porcentaje": 5 }
+  ],
+  "zonas_alto_riesgo": [
+    {
+      "nombre": "Puente Alto",
+      "coordenadas": [-33.6157, -70.5764],
+      "nivel_riesgo": 0.85,
+      "incidentes_recientes": 45
+    },
+    {
+      "nombre": "La Pintana",
+      "coordenadas": [-33.5833, -70.6333],
+      "nivel_riesgo": 0.78,
+      "incidentes_recientes": 38
+    },
+    {
+      "nombre": "Cerro Navia",
+      "coordenadas": [-33.4167, -70.7167],
+      "nivel_riesgo": 0.65,
+      "incidentes_recientes": 30
+    },
+    {
+      "nombre": "Renca",
+      "coordenadas": [-33.4000, -70.7167],
+      "nivel_riesgo": 0.60,
+      "incidentes_recientes": 25
+    },
+    {
+      "nombre": "Lo Espejo",
+      "coordenadas": [-33.5167, -70.7000],
+      "nivel_riesgo": 0.55,
+      "incidentes_recientes": 20
+    }
+  ],
+  "tendencia_alertas_graves": [
+    { "mes": "Enero", "alertas_graves": 123 },
+    { "mes": "Febrero", "alertas_graves": 132 },
+    { "mes": "Marzo", "alertas_graves": 140 },
+    { "mes": "Abril", "alertas_graves": 158 }
+  ],
+  "comunas_mas_riesgo": [
+    { "nombre": "Puente Alto", "incidentes": 356 },
+    { "nombre": "La Pintana", "incidentes": 289 },
+    { "nombre": "Renca", "incidentes": 210 },
+    { "nombre": "San Ramón", "incidentes": 170 },
+    { "nombre": "Conchalí", "incidentes": 145 }
+  ],
+  "recomendaciones": [
+    {
+      "zona": "Quilicura",
+      "riesgo": "Emergente",
+      "mensaje": "Aumento del 35% en robos durante los últimos 2 meses"
+    },
+    {
+      "zona": "San Ramón",
+      "riesgo": "Crítico",
+      "mensaje": "Alta tasa de reincidencia en delitos violentos"
+    },
+    {
+      "zona": "Peñalolén",
+      "riesgo": "Vigilancia sugerida",
+      "mensaje": "Incremento leve en emergencias médicas en adultos mayores"
+    }
+  ],
+  "clientes_en_riesgo": [
+    {
+      "nombre": "Ferretería Don Pepe",
+      "ubicacion": "La Pintana",
+      "incidentes_ultimos_30_dias": 3,
+      "tipo_riesgo": "Intrusión fuera de horario"
+    },
+    {
+      "nombre": "Escuela San Jorge",
+      "ubicacion": "Cerro Navia",
+      "incidentes_ultimos_30_dias": 2,
+      "tipo_riesgo": "Vandalismo reiterado"
+    },
+    {
+      "nombre": "Familia Gutiérrez",
+      "ubicacion": "Puente Alto",
+      "incidentes_ultimos_30_dias": 4,
+      "tipo_riesgo": "Robo con violencia"
+    }
+  ],
+  "zonas_recomendadas_para_expansion": [
+    {
+      "zona": "Maipú",
+      "argumento": "Alta densidad poblacional + aumento sostenido de robos domiciliarios"
+    },
+    {
+      "zona": "Huechuraba",
+      "argumento": "Pocas alarmas activas y aumento de intrusiones en locales comerciales"
+    },
+    {
+      "zona": "San Joaquín",
+      "argumento": "Vecinos con alta disposición al monitoreo preventivo"
+    }
+  ]
+}

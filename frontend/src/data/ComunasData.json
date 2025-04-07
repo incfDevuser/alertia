@@ -1,0 +1,57 @@
+[
+  {
+    "nombre": "Puente Alto",
+    "incidentes": 356,
+    "alertas_activas": 5,
+    "habitantes": 568000,
+    "perimetro_km": 88.5,
+    "predicciones": {
+      "riesgo": "Alto",
+      "proyeccion_incidentes_mes": 380
+    }
+  },
+  {
+    "nombre": "La Pintana",
+    "incidentes": 289,
+    "alertas_activas": 4,
+    "habitantes": 201000,
+    "perimetro_km": 35.2,
+    "predicciones": {
+      "riesgo": "Alto",
+      "proyeccion_incidentes_mes": 320
+    }
+  },
+  {
+    "nombre": "Las Condes",
+    "incidentes": 145,
+    "alertas_activas": 2,
+    "habitantes": 294000,
+    "perimetro_km": 96.0,
+    "predicciones": {
+      "riesgo": "Bajo",
+      "proyeccion_incidentes_mes": 140
+    }
+  },
+  {
+    "nombre": "Providencia",
+    "incidentes": 98,
+    "alertas_activas": 1,
+    "habitantes": 142000,
+    "perimetro_km": 14.3,
+    "predicciones": {
+      "riesgo": "Medio",
+      "proyeccion_incidentes_mes": 110
+    }
+  },
+  {
+    "nombre": "Santiago",
+    "incidentes": 234,
+    "alertas_activas": 3,
+    "habitantes": 404000,
+    "perimetro_km": 22.4,
+    "predicciones": {
+      "riesgo": "Medio",
+      "proyeccion_incidentes_mes": 250
+    }
+  }
+]
