@@ -78,6 +78,24 @@ const NavLinksEdificios = [
   },
   {
     id: 2,
+    label: "Mapa de Incidentes",
+    path: "/edificios/mapa-incidentes",
+    icon: BsMap,
+  },
+  {
+    id: 3,
+    label: "Reportes",
+    path: "/edificios/reportes",
+    icon: VscReport,
+  },
+  {
+    id: 4,
+    label: "Editor de Zona",
+    path: "/edificios/editor-zona",
+    icon: BsMap,
+  },
+  {
+    id: 5,
     label: "Seccion de Prueba",
     path: "/seccion-de-prueba-edificios",
     icon: AiOutlineHome,

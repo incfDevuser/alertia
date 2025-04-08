@@ -14,10 +14,15 @@ import Proyecciones from "./pages/Empresas/Proyecciones";
 import Reportes from "./pages/Empresas/Reportes";
 import ComunaDetalle from "./pages/Empresas/ComunaDetalle";
 import ReportesEmpresas from "./pages/Empresas/Reportes";
+
 //Edificios
 import HomeEdificios from "./pages/Edificios/HomeEdificios";
 import LayoutEdificios from "./components/Edificios/LayoutEdificios";
 import SeccionDePrueba from "./pages/Edificios/SeccionDePrueba";
+import MapaEdificios from "./pages/Edificios/MapaEdificios";
+import MapaEditorEdificios from "./pages/Edificios/MapaEditorEdificios";
+import ReportesEdificios from "./pages/Edificios/ReportesEdificios";
+
 //Municipalidades
 import HomeMunicipalidad from "./pages/Municipalidades/HomeMunicipalidad";
 import LayoutMunicipalidad from "./components/Municipalidades/LayoutMunicipalidad";
@@ -27,7 +32,7 @@ import MapaEditor from "./pages/Municipalidades/MapaEditor";
 
 //Paigna de inicio full
 import HomePage from "./pages/HomePage";
-import { HomePageMunicipalidad } from "./pages/HomePage";
+import { HomePageMunicipalidad, HomePageEdificios } from "./pages/HomePage";
 
 function App() {
   const [selectedType, setSelectedType] = useState("default");
@@ -52,7 +57,10 @@ function App() {
       </div>
       <BrowserRouter>
         <Routes>
-        <Route path="/" element={<HomePageMunicipalidad />} />
+          <Route path="/" element={
+            selectedType === "municipalidad" ? <HomePageMunicipalidad /> :
+            selectedType === "edificios" ? <HomePageEdificios /> : <HomePage />
+          } />
           {selectedType === "municipalidad" && (
             <Route element={<LayoutMunicipalidad />}>
               <Route path="/" element={<HomeMunicipalidad />} />
@@ -75,11 +83,13 @@ function App() {
           {selectedType === "edificios" && (
             <Route element={<LayoutEdificios />}>
               <Route path="/" element={<HomeEdificios />} />
+              <Route path="/edificios/mapa-incidentes" element={<MapaEdificios />} />
+              <Route path="/edificios/reportes" element={<ReportesEdificios />} />
+              <Route path="/edificios/editor-zona" element={<MapaEditorEdificios />} />
               <Route path="/seccion-de-prueba-edificios" element={<SeccionDePrueba />} />
             </Route>
           )}
           <Route path="*" element={<NotFound />} />
-          <Route path="/" element={<HomePage />} />
         </Routes>
       </BrowserRouter>
     </div>
