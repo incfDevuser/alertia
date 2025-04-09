@@ -59,7 +59,7 @@ const NavLinksMunicipalidades = [
   {
     id: 4,
     label: "Reportes",
-    path: "/reportes",
+    path: "/reportes-municipalidades",
     icon: VscReport,
   },
   {
