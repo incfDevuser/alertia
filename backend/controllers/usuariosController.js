@@ -74,7 +74,7 @@ const registrarse = async (req, res) => {
     return res.status(400).json({ message: "El email ya está registrado" });
   }
   const hashedPassword = await bcryptjs.hash(password, 10);
-  const nuevoUsuario = new Usuario({
+  const usuario = new Usuario({
     nombre_completo,
     email,
     password: hashedPassword,
@@ -87,12 +87,12 @@ const registrarse = async (req, res) => {
     rol: "usuario",
   });
   try {
-    const nuevoUsuario = await nuevoUsuario.save();
+    const usuarioGuardado = await usuario.save();
     const payload = {
-      _id: nuevoUsuario._id,
-      nombre_completo: nuevoUsuario.nombre_completo,
-      email: nuevoUsuario.email,
-      rol: nuevoUsuario.rol,
+      _id: usuarioGuardado._id,
+      nombre_completo: usuarioGuardado.nombre_completo,
+      email: usuarioGuardado.email,
+      rol: usuarioGuardado.rol,
     };
     const token = jwt.sign(payload, process.env.JWT_SECRET, {
       expiresIn: "1d",
@@ -106,7 +106,7 @@ const registrarse = async (req, res) => {
     res.cookie("token_access", token, cookieOptions);
     return res.status(201).json({
       message: "Usuario registrado exitosamente",
-      nuevoUsuario,
+      usuario: usuarioGuardado,
     });
   } catch (error) {
     console.error("Error al registrar:", error);

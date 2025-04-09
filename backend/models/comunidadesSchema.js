@@ -12,19 +12,39 @@ const ComunidadSchema = new mongoose.Schema({
         type: ObjectId,
         ref: "Usuario",
         required: true,
-      },
-    },
+      }
+    }
   ],
   color_comunidad: {
     type: String,
     enum: ["rojo", "azul", "verde", "amarillo", "naranja"],
     required: true,
   },
+  codigo_acceso: {
+    type: String,
+    unique: true,
+    required: true,
+  },
   zona: {
-    type: { type: String, enum: ["Polygon"], default: "Polygon" },
+    type: {
+      type: String,
+      enum: ["Polygon"],
+      required: true,
+    },
     coordinates: {
       type: [[[Number]]],
       required: true,
+      validate: {
+        validator: function (coords) {
+          return (
+            coords[0].length >= 4 &&
+            JSON.stringify(coords[0][0]) ===
+              JSON.stringify(coords[0][coords[0].length - 1])
+          );
+        },
+        message:
+          "El polígono debe tener al menos 3 puntos y debe estar cerrado",
+      },
     },
   },
   admin_comunidad: {
