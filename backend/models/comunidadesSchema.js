@@ -12,8 +12,8 @@ const ComunidadSchema = new mongoose.Schema({
         type: ObjectId,
         ref: "Usuario",
         required: true,
-      }
-    }
+      },
+    },
   ],
   color_comunidad: {
     type: String,
@@ -72,6 +72,12 @@ const ComunidadSchema = new mongoose.Schema({
     {
       type: ObjectId,
       ref: "AlertaDireccion",
+    },
+  ],
+  alertas_cercanas: [
+    {
+      type: ObjectId,
+      ref: "Alerta",
     },
   ],
   rutas_seguros: [

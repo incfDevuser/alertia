@@ -4,6 +4,7 @@ import { generarCodigoAcceso } from "../utils/CodigoAcceso.js";
 const obtenerComunidades = async (req, res) => {
   try {
     const comunidades = await Comunidad.find()
+      .select("-codigo_acceso")
       .populate({
         path: "miembros.usuario",
         select: "nombre_completo rol",
@@ -86,7 +87,16 @@ const unirseComunidad = async (req, res) => {
         .json({ message: "Ya eres miembro de esta comunidad" });
     }
     comunidad.miembros.push({ usuario: user_id });
-    const comunidadActualizada = await comunidad.save();
+    await comunidad.save();
+
+    const comunidadActualizada = await Comunidad.findById(comunidad._id)
+      .select("-codigo_acceso")
+      .populate({
+        path: "miembros.usuario",
+        select: "nombre_completo rol",
+      })
+      .populate("admin_comunidad", "nombre_completo rol");
+
     return res.status(200).json({
       message: "Te has unido a la comunidad exitosamente",
       comunidad: comunidadActualizada,
@@ -143,8 +153,23 @@ const obtenerComunidadesPorUsuario = async (req, res) => {
         path: "miembros.usuario",
         select: "nombre_completo rol",
       })
-      .populate("admin_comunidad", "nombre_completo rol");
-
+      .populate("admin_comunidad", "nombre_completo rol")
+      .populate({
+        path: "alertas",
+        select: "tipo_alerta ubicacion descripcion fecha_creacion estado creada_por",
+        populate: {
+          path: "creada_por",
+          select: "nombre_completo"
+        }
+      })
+      .populate({
+        path: "alertas_cercanas",
+        select: "tipo_alerta ubicacion descripcion fecha_creacion estado creada_por",
+        populate: {
+          path: "creada_por",
+          select: "nombre_completo"
+        }
+      });
     return res.status(200).json({
       message: "Comunidades del usuario obtenidas exitosamente",
       comunidades,
@@ -152,6 +177,50 @@ const obtenerComunidadesPorUsuario = async (req, res) => {
   } catch (error) {
     return res.status(500).json({
       message: "Error al obtener las comunidades del usuario",
+      error: error.message,
+    });
+  }
+};
+const obtenerAlertasComunidad = async (req, res) => {
+  try {
+    const { comunidadId } = req.params;
+
+    const comunidad = await Comunidad.findById(comunidadId)
+      .populate({
+        path: "alertas",
+        select:
+          "tipo_alerta ubicacion fecha_creacion descripcion estado creada_por",
+        populate: {
+          path: "creada_por",
+          select: "nombre_completo",
+        },
+      })
+      .populate({
+        path: "alertas_cercanas",
+        select:
+          "tipo_alerta ubicacion fecha_creacion descripcion estado creada_por",
+        populate: {
+          path: "creada_por",
+          select: "nombre_completo",
+        },
+      });
+
+    if (!comunidad) {
+      return res.status(404).json({
+        message: "Comunidad no encontrada",
+      });
+    }
+
+    return res.status(200).json({
+      message: "Alertas obtenidas exitosamente",
+      data: {
+        alertas_dentro: comunidad.alertas,
+        alertas_cercanas: comunidad.alertas_cercanas,
+      },
+    });
+  } catch (error) {
+    return res.status(500).json({
+      message: "Error al obtener las alertas",
       error: error.message,
     });
   }
@@ -168,6 +237,7 @@ const editarComunidad = async (req, res) => {
 
 export const ComunidadesController = {
   obtenerComunidades,
+  obtenerAlertasComunidad,
   crearComunidades,
   unirseComunidad,
   salirDeComunidad,

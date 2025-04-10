@@ -29,4 +29,11 @@ router.get(
   AuthMiddleware.AuthToken,
   ComunidadesController.obtenerComunidadesPorUsuario
 );
+//Obtener alertas por comunidad
+router.get(
+  "/alertas/:comunidadId",
+  AuthMiddleware.AuthToken,
+  ComunidadesController.obtenerAlertasComunidad
+);
+
 export default router;

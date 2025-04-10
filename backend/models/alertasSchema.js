@@ -40,14 +40,6 @@ const AlertaSchema = new mongoose.Schema({
     type: String,
     enum: ['pendiente', 'confirmada', 'desmentida'],
     default: 'pendiente'
-  },
-  mov_brusco: {
-    type: Boolean,
-    default: false
-  },
-  reporte: {
-    type: ObjectId,
-    ref: 'Reporte'
   }
 }, {
   timestamps: true
