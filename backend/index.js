@@ -6,8 +6,8 @@ import conexion from "./config/db.js";
 //Rutas de usuarios
 import usuarioRoutes from "./routes/usuario.routes.js";
 import comunidadesRoutes from "./routes/comunidades.routes.js";
-import alertasRoutes from './routes/alertas.routes.js'
-
+import alertasRoutes from "./routes/alertas.routes.js";
+import comunasRoutes from "./routes/comunas.routes.js";
 dotenv.config();
 conexion();
 
@@ -22,6 +22,7 @@ app.use(cookieParser());
 app.use("/api/usuarios", usuarioRoutes);
 app.use("/api/comunidades", comunidadesRoutes);
 app.use("/api/alertas", alertasRoutes);
+app.use("/api/comunas", comunasRoutes);
 
 app.listen(port, () => {
   console.log(`Servidor corriendo en el puerto ${port}`);

@@ -1,5 +1,7 @@
 import Comunidad from "../models/comunidadesSchema.js";
 import { generarCodigoAcceso } from "../utils/CodigoAcceso.js";
+import asignarComunidadEnComuna from "../utils/AsignarComunidadComuna.js";
+import * as turf from "@turf/turf";
 
 const obtenerComunidades = async (req, res) => {
   try {
@@ -37,6 +39,11 @@ const crearComunidades = async (req, res) => {
         message: "El polígono debe tener al menos 3 puntos diferentes",
       });
     }
+    const polygon = turf.polygon([coordinates]);
+    if (!turf.booleanValid(polygon)) {
+      return res.status(400).json({ mensaje: "Geometría del polígono inválida" });
+    }
+
     if (
       JSON.stringify(coordinates[0]) !==
       JSON.stringify(coordinates[coordinates.length - 1])
@@ -55,8 +62,9 @@ const crearComunidades = async (req, res) => {
       miembros: [{ usuario: user_id }],
     });
     const comunidadGuardada = await nuevaComunidad.save();
+    await asignarComunidadEnComuna(comunidadGuardada);
     return res.status(201).json({
-      message: "Comunidad creada exitosamente",
+      message: "Comunidad creada exitosamente y asignada a comuna",
       comunidad: comunidadGuardada,
     });
   } catch (error) {
